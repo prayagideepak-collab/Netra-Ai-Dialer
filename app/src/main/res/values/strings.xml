@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Netra Dialer</string>
+    <string name="brand_subtitle">Prayagi Store &amp; Services • Official Business Identity Lock</string>
+    <string name="tab_call_logs">Call Logs</string>
+    <string name="tab_dialpad">Dialer</string>
+    <string name="tab_crm">CRM Sync</string>
+    <string name="tab_identity">Identity Lock</string>
+    <string name="tab_ai_hub">AI &amp; Shield</string>
+</resources>

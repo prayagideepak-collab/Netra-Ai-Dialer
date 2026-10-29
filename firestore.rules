@@ -1,0 +1,210 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global default-deny safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidStringList(arr, maxItems, maxItemLen) {
+      return arr is list &&
+             arr.size() <= maxItems &&
+             (arr.size() == 0 || (arr[0] is string && arr[0].size() <= maxItemLen));
+    }
+
+    function isValidCallLogRecord(data, userId) {
+      return data.keys().hasAll([
+               'userId', 'phoneNumber', 'contactName', 'direction',
+               'timestampMillis', 'durationSeconds', 'callingMode',
+               'verifiedCallerIdStatus', 'verifiedLegalNameUsed',
+               'crmSyncStatus', 'crmContactId', 'aiSummaryOverview',
+               'aiDiscussionPoints', 'aiActionItems', 'createdAt', 'updatedAt'
+             ]) &&
+             data.keys().hasOnly([
+               'userId', 'phoneNumber', 'contactName', 'direction',
+               'timestampMillis', 'durationSeconds', 'callingMode',
+               'verifiedCallerIdStatus', 'verifiedLegalNameUsed',
+               'crmSyncStatus', 'crmContactId', 'aiSummaryOverview',
+               'aiDiscussionPoints', 'aiActionItems', 'createdAt', 'updatedAt'
+             ]) &&
+             data.userId is string && data.userId == userId &&
+             data.phoneNumber is string && data.phoneNumber.size() >= 1 && data.phoneNumber.size() <= 40 &&
+             data.contactName is string && data.contactName.size() <= 120 &&
+             data.direction is string && data.direction in ['OUTGOING', 'INCOMING', 'MISSED', 'REJECTED'] &&
+             data.timestampMillis is int && data.timestampMillis >= 0 &&
+             data.durationSeconds is int && data.durationSeconds >= 0 && data.durationSeconds <= 864000 &&
+             data.callingMode is string && data.callingMode in ['BUSINESS_VERIFIED', 'PERSONAL'] &&
+             data.verifiedCallerIdStatus is string &&
+             data.verifiedCallerIdStatus in [
+               'PROVIDER_APPROVED',
+               'IDENTITY_AND_NUMBER_VERIFIED',
+               'REGISTRATION_PENDING',
+               'PROVIDER_REJECTED',
+               'PERSONAL_UNBRANDED'
+             ] &&
+             data.verifiedLegalNameUsed is string && data.verifiedLegalNameUsed.size() <= 160 &&
+             data.crmSyncStatus is string && data.crmSyncStatus in ['SYNCED', 'PENDING', 'FAILED'] &&
+             data.crmContactId is string && data.crmContactId.size() <= 128 &&
+             data.aiSummaryOverview is string && data.aiSummaryOverview.size() <= 2000 &&
+             isValidStringList(data.aiDiscussionPoints, 15, 300) &&
+             isValidStringList(data.aiActionItems, 15, 300) &&
+             data.createdAt is timestamp && data.createdAt <= request.time &&
+             data.updatedAt is timestamp && data.updatedAt <= request.time;
+    }
+
+    function isValidCrmContactRecord(data, userId) {
+      return data.keys().hasAll([
+               'userId', 'fullName', 'companyName', 'phoneNumber', 'email',
+               'stage', 'totalCalls', 'totalDurationSeconds',
+               'verifiedOutboundCallsCount', 'lastInteractionTimestamp',
+               'latestAiSummary', 'openActionItems', 'notes', 'createdAt', 'updatedAt'
+             ]) &&
+             data.keys().hasOnly([
+               'userId', 'fullName', 'companyName', 'phoneNumber', 'email',
+               'stage', 'totalCalls', 'totalDurationSeconds',
+               'verifiedOutboundCallsCount', 'lastInteractionTimestamp',
+               'latestAiSummary', 'openActionItems', 'notes', 'createdAt', 'updatedAt'
+             ]) &&
+             data.userId is string && data.userId == userId &&
+             data.fullName is string && data.fullName.size() >= 1 && data.fullName.size() <= 120 &&
+             data.companyName is string && data.companyName.size() <= 120 &&
+             data.phoneNumber is string && data.phoneNumber.size() >= 1 && data.phoneNumber.size() <= 40 &&
+             data.email is string && data.email.size() <= 120 &&
+             data.stage is string && data.stage in ['LEAD', 'ACTIVE_CLIENT', 'VIP_PARTNER', 'SUPPORT'] &&
+             data.totalCalls is int && data.totalCalls >= 0 &&
+             data.totalDurationSeconds is int && data.totalDurationSeconds >= 0 &&
+             data.verifiedOutboundCallsCount is int && data.verifiedOutboundCallsCount >= 0 &&
+             data.lastInteractionTimestamp is int && data.lastInteractionTimestamp >= 0 &&
+             data.latestAiSummary is string && data.latestAiSummary.size() <= 2000 &&
+             isValidStringList(data.openActionItems, 20, 300) &&
+             data.notes is string && data.notes.size() <= 2000 &&
+             data.createdAt is timestamp && data.createdAt <= request.time &&
+             data.updatedAt is timestamp && data.updatedAt <= request.time;
+    }
+
+    function isValidBusinessIdentity(data, userId) {
+      return data.keys().hasAll([
+               'userId', 'registrationType', 'registrationNumberMasked',
+               'verifiedLegalName', 'verifiedTradeName', 'verificationSource',
+               'applicantAuthorized', 'lockStatus', 'outboundNumber',
+               'outboundNumberVerified', 'callerIdProviderStatus',
+               'createdAt', 'updatedAt'
+             ]) &&
+             data.keys().hasOnly([
+               'userId', 'registrationType', 'registrationNumberMasked',
+               'verifiedLegalName', 'verifiedTradeName', 'verificationSource',
+               'applicantAuthorized', 'lockStatus', 'outboundNumber',
+               'outboundNumberVerified', 'callerIdProviderStatus',
+               'createdAt', 'updatedAt'
+             ]) &&
+             data.userId is string && data.userId == userId &&
+             data.registrationType is string && data.registrationType in ['GSTIN', 'UDYAM'] &&
+             data.registrationNumberMasked is string && data.registrationNumberMasked.size() >= 1 && data.registrationNumberMasked.size() <= 60 &&
+             data.verifiedLegalName is string && data.verifiedLegalName.size() >= 1 && data.verifiedLegalName.size() <= 160 &&
+             data.verifiedTradeName is string && data.verifiedTradeName.size() <= 160 &&
+             data.verificationSource is string && data.verificationSource.size() >= 1 && data.verificationSource.size() <= 120 &&
+             data.applicantAuthorized is bool &&
+             data.lockStatus is string && data.lockStatus in ['LOCKED_ACTIVE', 'REVERIFICATION_PENDING', 'SUSPENDED_INVALID', 'UNVERIFIED'] &&
+             data.outboundNumber is string && data.outboundNumber.size() <= 40 &&
+             data.outboundNumberVerified is bool &&
+             data.callerIdProviderStatus is string && data.callerIdProviderStatus in ['PROVIDER_APPROVED', 'PENDING', 'REJECTED', 'UNAVAILABLE'] &&
+             data.createdAt is timestamp && data.createdAt <= request.time &&
+             data.updatedAt is timestamp && data.updatedAt <= request.time;
+    }
+
+    function isValidIdentityAuditEvent(data, userId) {
+      return data.keys().hasAll([
+               'userId', 'eventType', 'source', 'matchedLegalName',
+               'previousStatus', 'newStatus', 'failureReason', 'createdAt'
+             ]) &&
+             data.keys().hasOnly([
+               'userId', 'eventType', 'source', 'matchedLegalName',
+               'previousStatus', 'newStatus', 'failureReason', 'createdAt'
+             ]) &&
+             data.userId is string && data.userId == userId &&
+             data.eventType is string && data.eventType.size() >= 1 && data.eventType.size() <= 80 &&
+             data.source is string && data.source.size() >= 1 && data.source.size() <= 120 &&
+             data.matchedLegalName is string && data.matchedLegalName.size() <= 160 &&
+             data.previousStatus is string && data.previousStatus.size() <= 60 &&
+             data.newStatus is string && data.newStatus.size() >= 1 && data.newStatus.size() <= 60 &&
+             data.failureReason is string && data.failureReason.size() <= 500 &&
+             data.createdAt is timestamp && data.createdAt <= request.time;
+    }
+
+    match /users/{userId}/call_logs/{callId} {
+      allow get: if isOwner(userId) && isValidId(userId) && isValidId(callId) && existing().userId == request.auth.uid;
+      allow list: if isOwner(userId) && existing().userId == request.auth.uid;
+      allow create: if isOwner(userId) && isValidId(userId) && isValidId(callId) && isValidCallLogRecord(incoming(), userId);
+      allow update: if isOwner(userId) && isValidId(userId) && isValidId(callId) &&
+                       isValidCallLogRecord(incoming(), userId) &&
+                       incoming().userId == existing().userId &&
+                       incoming().createdAt == existing().createdAt &&
+                       incoming().diff(existing()).affectedKeys().hasOnly([
+                         'contactName', 'durationSeconds', 'crmSyncStatus', 'crmContactId',
+                         'aiSummaryOverview', 'aiDiscussionPoints', 'aiActionItems', 'updatedAt'
+                       ]);
+      allow delete: if isOwner(userId) && isValidId(userId) && isValidId(callId) && existing().userId == request.auth.uid;
+    }
+
+    match /users/{userId}/crm_contacts/{contactId} {
+      allow get: if isOwner(userId) && isValidId(userId) && isValidId(contactId) && existing().userId == request.auth.uid;
+      allow list: if isOwner(userId) && existing().userId == request.auth.uid;
+      allow create: if isOwner(userId) && isValidId(userId) && isValidId(contactId) && isValidCrmContactRecord(incoming(), userId);
+      allow update: if isOwner(userId) && isValidId(userId) && isValidId(contactId) &&
+                       isValidCrmContactRecord(incoming(), userId) &&
+                       incoming().userId == existing().userId &&
+                       incoming().createdAt == existing().createdAt &&
+                       incoming().diff(existing()).affectedKeys().hasOnly([
+                         'fullName', 'companyName', 'phoneNumber', 'email', 'stage',
+                         'totalCalls', 'totalDurationSeconds', 'verifiedOutboundCallsCount',
+                         'lastInteractionTimestamp', 'latestAiSummary', 'openActionItems',
+                         'notes', 'updatedAt'
+                       ]);
+      allow delete: if isOwner(userId) && isValidId(userId) && isValidId(contactId) && existing().userId == request.auth.uid;
+    }
+
+    match /users/{userId}/business_identity/{docId} {
+      allow get: if isOwner(userId) && isValidId(userId) && isValidId(docId) && existing().userId == request.auth.uid;
+      allow list: if isOwner(userId) && existing().userId == request.auth.uid;
+      allow create: if isOwner(userId) && isValidId(userId) && isValidId(docId) && isValidBusinessIdentity(incoming(), userId);
+      allow update: if isOwner(userId) && isValidId(userId) && isValidId(docId) &&
+                       isValidBusinessIdentity(incoming(), userId) &&
+                       incoming().userId == existing().userId &&
+                       incoming().createdAt == existing().createdAt &&
+                       incoming().diff(existing()).affectedKeys().hasOnly([
+                         'registrationType', 'registrationNumberMasked', 'verifiedLegalName',
+                         'verifiedTradeName', 'verificationSource', 'applicantAuthorized',
+                         'lockStatus', 'outboundNumber', 'outboundNumberVerified',
+                         'callerIdProviderStatus', 'updatedAt'
+                       ]);
+      allow delete: if false;
+    }
+
+    match /users/{userId}/identity_audit_logs/{auditId} {
+      allow get: if isOwner(userId) && isValidId(userId) && isValidId(auditId) && existing().userId == request.auth.uid;
+      allow list: if isOwner(userId) && existing().userId == request.auth.uid;
+      allow create: if isOwner(userId) && isValidId(userId) && isValidId(auditId) && isValidIdentityAuditEvent(incoming(), userId);
+      allow update, delete: if false;
+    }
+  }
+}

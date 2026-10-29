@@ -1,0 +1,576 @@
+Prayagi ji, aapka idea ek normal dialer se kaafi aage hai. Aap ek AI-powered Smart Dialer banana chahte hain, jo default phone app ki tarah kaam kare, automatic call recording, real-time spam protection, caller announcement, Google Drive backup aur privacy ko ek hi application mein jode.
+
+Is project mein sabse mahatvapurn baat hai: incoming call screen turant dikhni chahiye, phone ring hone mein deri nahi honi chahiye aur background mein battery consumption minimum rehna chahiye.
+
+Ek technical baat pehle spasht kar doon: Android par app apne liye RAM ka ek fixed hissa reserve karke 24/7 guarantee nahi kar sakta. Android memory ko manage karta hai aur zaroorat padne par processes ko band bhi kar sakta hai. Lekin sahi default dialer role, system call-screening APIs, lightweight services aur efficient architecture se response ko kaafi reliable banaya ja sakta hai.
+
+Isi tarah, automatic call recording ki availability Android version, device manufacturer, regional restrictions aur default dialer implementation par nirbhar karegi. AI prompt mein in limitations ko bypass karne ke bajay supported implementation aur clear status reporting anivarya honi chahiye.
+
+## Meri taraf se 12 additional features
+
+[Google's automatic call screen feature coming to all Pixel phones | News.Wirefly](https://images.openai.com/static-rsc-4/wVedOXFgbo9VlUlnp8IU6xuVWSSd5bNMzTTKMj_o_XXurbHtGCw4mmewVQ18JLXbS7x8X5e0gm9SklmCmFpFBOBTp4iFoid2aO66LBM-Z5pzCtiQAXHy9m0oV5UOtqNm3kJWDV1-W4PvF7qXIVekb-utimTnO0Wub-D7Zwsc8d8?purpose=inline)
+
+1\. Smart Caller Identification
+
+Contact mein number na hone par spam database ya kisi authorized caller-ID source se naam aur spam status dikhaya jaye. Naam verified na ho to use verified batakar announce na kare.
+
+[Phone Call Readings  – Intuitive Kait](https://images.openai.com/static-rsc-4/VBKPOoJ8M7_i6_ZFDGvtbhkfV3K4AMHRDDFb9qg83QBqJWcOdmhS2-GA5SkzgPlx7qw3dtDjx4QHotoweRhyItih6rC_M1gQk8j2wR7GS4HYskHQBeJLBZxTRS1GpCa3sJI3Btf2hFu83G6Vb5gbmP0yGigA4v5wyS5peZy6rk0?purpose=inline)
+
+2\. Instant Incoming Call UI
+
+Native Android calling interfaces ka istemal, taaki incoming call screen samay par dikhe. App ka apna heavy background process incoming calls ke liye anivarya na ho.
+
+[Call Recorder · Auto Record - Business App | MWM](https://images.openai.com/static-rsc-4/Nrfobq1lZKG5lebfMKxqVvzlTeFUGNcmNFiHWIR4uMx9WXSP3-WMAcIdVLI5AXL6vpbDeve0EcqoCSTAoC-dsENQQ-Xvgqn4rIt0zM_bcZCi4AS97oOwNULQbXxh7DLDYQvEbp1_bi619SaBw6aMM9rWptWZnZrfzkxdK3QF_dA?purpose=inline)
+
+3\. Intelligent Call Recording Manager
+
+Recording availability ka automatic check, recording status indicator, date aur number ke hisaab se search, playback, retention policy aur encrypted local storage. Jahan Android recording ki anumati na de, wahan spasht status dikhaya jaye.
+
+[Google Pixel 6 Tensor chip — what it is and why it’s a big deal | Tom's Guide](https://images.openai.com/static-rsc-4/lWTcaPrA-x-ab8Em4H_Kc5T2VhvgRNm5hOn9myWr5hqx5wuABxBperpSRwaDcI2mHFvthAC1Bub1J34U7ZDWVk0BeQQcfHvwMqg5sckMfdZ-v4h0dSjkyNJc5z38AZb5z-KJsRNoL_rOYFxA8QNGieixqBjLY8hx790psH5vEZE?purpose=inline)
+
+4\. Privacy Control Center
+
+User decide kare ki contacts, call logs, recordings aur backup data kahan store honge. Koi hidden upload, advertising tracker ya bina anumati data sharing nahi.
+
+[How to Fix Pictures Taken with Camera Doesn't Save in Gallery](https://images.openai.com/static-rsc-4/DTGsPTAv_SLSJOJNs5DZ25elAJr1XIKGHn5d6AS0Ev797xFP3zQn7X09HRtNOSA1d7qNjhUt-2Kj2so0Vke94LpAwUXqz2uqAKY0FOWqYN0CUExwP3f6dWEkD7rcufoKuriKLukqYcYBMd8Jd6YBzB8NUIryEKv34ZmI3Ewo7x0?purpose=inline)
+
+5\. Google Drive Auto Backup
+
+OAuth authentication, pehli baar user consent, Wi-Fi-only option, scheduled backup, failure notification aur restore verification. Recording backup alag se opt-in ho.
+
+[Safety and Security - Banking safely and securely: Loan scams | OCBC Bank Singapore](https://images.openai.com/static-rsc-4/btbQ3y3m44NcovlQwWyveSXDE5F1gS1Lh2WsoUDIuP3UKKeKx8lohit8_4FdSKZ2_2FkW5rvvN7tNI4jAorAC929vungNSEQmxF7H_SGu-T-AO0PuWbt1g9wymE28G3_Q8uapNMfAa7qoRD98Fmfnp7-512bk8ibXiD8YwHi76c?purpose=inline)
+
+6\. Hybrid Spam Protection
+
+Local offline spam database, 24-hour scheduled synchronization, unknown caller warning, spam report aur false-positive correction. Internet band hone par bhi aakhiri synced database kaam kare.
+
+[Android | el truco para que tu móvil diga el nombre de la persona que te está llamando | Aplicaciones | Smartphone | Teléfono de Google | Tutorial | Celulares | Llamadas | Contactos | nnda | nnni | MAG | EL COMERCIO PERÚ](https://images.openai.com/static-rsc-4/7-HsicgAid13oQVJzzvZ0WTJbiKCoOQjV2N3hSLFMmjM-NY3DglL6fbLIVw6YQxVhONN7yTD2pR04FG607vnE_pa2y7tt57sCwxA98KyAWq26nzpLEzEry7UJz7tJbz5W-ZqbyxJcqOx8F5nO8dPBj-IDnU4qh6zNZL70up7STU?purpose=inline)
+
+7\. Caller Name Announcement
+
+Contact ka naam, warna available verified caller name, aur anyatha number announce ho. Headphones, Bluetooth, silent mode aur user-configurable quiet hours ka support ho.
+
+[Infinix - SMART 8 PRO - Nepal](https://images.openai.com/static-rsc-4/5dFT-w6A1MDcrdzfzbyF26DBd6WYDNiXngIT0es32c_5gabsx_SZGPX3gRsAc_Pwrw8RyKImD8GfV_fsKt097Cvt29ZbXQ-XMxhOFS6EHRcR61c5hfPXklNuTZXrdnj7HaEJILNB9R-oi1nViFDpps8GZrAEY5lZ3U0lQo06BPs?purpose=inline)
+
+8\. Complete Native Dialer
+
+T9 search, favorites, recent calls, dual SIM selection, contact management, call history aur blocked-number management.
+
+[Download | Battery Guru: Battery Insights for Your Device](https://images.openai.com/static-rsc-4/Xa60NGMrCdzWYyKchJKBHmmAnbHNn4IUDPiqBxEmiCYloskk22cMa9TkYyKs1J_SoE2uS4tkwPqwgP7DQWPN0SXguUeHOb0WJvQC1nvZjgnPC4Kee-jL7VMyDo4GHC2RsxElMFi91hsYH7cTvw95IzET7hp-WqIxXivAHzDQPtw?purpose=inline)
+
+9\. Ultra-Low Battery Architecture
+
+Event-driven processing, unnecessary polling se bachav, lightweight database, background network requests par limits aur measured battery consumption.
+
+[Save Yourself Against Call Scams With CallApp - Hongkiat](https://images.openai.com/static-rsc-4/kfvlbdPAJ4Q4Kf1FYkGuJ3S7eiGRARNgOtAsi2LtYMlkngu9DFn3nYMibP5kwNODScPX1QhTlfDEfl93Q42FlY9P6aHiJOFrh4dBTpPUbMn-9uVzyR3sJhzixXJAF_o3FVuLUjzKhnd9nHo4NDWAGMgF4zxvggFGpIfOiIDPjuk?purpose=inline)
+
+10\. Missed Call Intelligence
+
+Missed, rejected aur answered calls ka alag record, repeat callers ki pehchan aur optional callback reminders.
+
+[Viral Kasus Alodokter, Ini Cara Blokir Telepon Telemarketing yang Mengganggu | kumparan.com](https://images.openai.com/static-rsc-4/LgfEvaGtWyUJ4ZO4sJtIpKWgqg1Jpc0cI8kiXnRrH6joaqyTwcooOBgsqwtd1tUpnN4HYhlJGZbk1PblnMmrKoZV8ccX9hiiy_mJ8A4mugH390FubOZDS699CvouJW7MEsYqTwKM68UHgsAixbePrj3ykN0WDa-wp3tMw9klx1E?purpose=inline)
+
+11\. Custom Call Protection Rules
+
+User-defined block list, allow list, hidden/private numbers ke liye rules aur repeated spam callers ki warning. Emergency aur important contacts ko galti se block karne se bachane ke safeguards.
+
+[Dev Check APK Download for Android - Latest Version](https://images.openai.com/static-rsc-4/rczvs9KNiWB8jMGVcb5MI6vDNEHrloqSER2okKHW9MDH7o9pUHj_zIoP1oMgWtV5SSr7oTUx0_Zrh57J6GFcmUrE5u3S28pYWzh5uxsIPdY42nZ6UccfpKOpeICC7xmRnUaH0DY6dkdIlCYSAg8_sL1piYC94RakMmVjMWbNWpo?purpose=inline)
+
+12\. Self-Diagnostics aur Recovery
+
+Permissions, default dialer role, spam sync, backup, recording support aur database health ki jaanch. App restart ya device reboot ke baad zaroori settings aur scheduled work restore ho.
+
+## AI coding agent ke liye Master Prompt
+
+Neeche ek initial master prompt hai. Ise aap Android application banane wale AI coding agent ko de sakte hain. Ismein architecture, privacy, testing aur deployment ke requirements shamil hain.
+
+# MASTER PROMPT — AI-POWERED ANDROID SMART DIALER
+
+## 1. ROLE AND MISSION
+
+Act as a senior Android engineer, mobile telephony specialist, Kotlin architect, security engineer, privacy engineer, performance engineer, and QA automation engineer.
+
+Build a complete, production-oriented Android phone dialer application named **Prayagi Smart Dialer**.
+
+This must be a functional Android calling application, not a UI prototype, mockup, or demonstration project.
+
+The application must prioritize, in this order:
+
+1. Android telephony reliability and device safety.
+2. Incoming-call responsiveness and correct call handling.
+3. User privacy and data security.
+4. Minimum practical battery and memory consumption.
+5. Reliable spam protection and caller announcements.
+6. Call recording wherever officially supported.
+7. Secure backup and restoration.
+8. Maintainable architecture and testability.
+
+Never sacrifice higher-priority requirements to implement an optional feature.
+
+## 2. TECHNOLOGY STACK
+
+Use:
+
+- Native Android development.
+- Kotlin.
+- Android Studio and Gradle.
+- Jetpack Compose for application screens, unless a platform requirement makes another native implementation more suitable.
+- Android Telecom APIs and the supported default-dialer role.
+- CallScreeningService for supported call-screening functions.
+- Room for local structured data.
+- WorkManager for deferrable periodic synchronization and backup.
+- Android TextToSpeech for caller announcements.
+- Android Keystore for protecting cryptographic keys.
+- Google Sign-In/OAuth authorization as appropriate for Google Drive access.
+- Google Drive API for user-authorized backups.
+- Automated unit, integration, UI and compatibility tests.
+
+Choose SDK versions using current official Android documentation. Clearly document minimum supported Android version, target SDK, required permissions, device limitations and Play Store policy considerations.
+
+Do not add unnecessary dependencies, advertising SDKs, analytics trackers or proprietary services.
+
+## 3. COMPLETE DEFAULT DIALER
+
+Implement the supported Android default-phone-app workflow.
+
+Features:
+
+- Incoming and outgoing call interfaces.
+- Answer, reject, end-call and supported in-call controls.
+- Dial pad with T9 contact search.
+- Contacts, favorites and recent calls.
+- Missed, incoming and outgoing call history.
+- Dual-SIM selection wherever supported.
+- Contact creation and editing through authorized Android interfaces.
+- Call history filtering and search.
+- Number formatting and country-code handling.
+- Block list and allow list.
+- Appropriate handling of call waiting and multiple calls, subject to device and carrier support.
+
+Request the default dialer role using the official Android role-request mechanism.
+
+Do not assume that installing the app automatically makes it the default dialer. Provide clear setup instructions and detect when the role is lost.
+
+Never replace, disable or interfere with emergency calling functionality.
+
+## 4. AUTOMATIC CALL RECORDING
+
+Provide an automatic recording preference with the following options:
+
+- Always attempt recording when supported and permitted.
+- Record only selected contacts or numbers.
+- Exclude selected contacts or numbers.
+- Disable recording.
+- Configure recording retention and storage limits.
+
+The user's preferred automatic-recording setting should be enabled by default only if this can be implemented lawfully, transparently and with any required consent.
+
+Requirements:
+
+- Check recording availability on the current device and Android version.
+- Use only supported and permitted recording mechanisms.
+- Never claim that the public Android APIs universally support recording both sides of a cellular call.
+- Never use hidden APIs, root exploits, accessibility-service abuse or microphone workarounds that violate platform restrictions.
+- Show an explicit recording status.
+- Never display a successful recording state until recording has actually started.
+- Save completed recordings with appropriate metadata.
+- Handle interrupted calls, storage failures, insufficient space and process termination safely.
+- Support playback, search, deletion and retention policies.
+- Protect recordings with Android Keystore-backed encryption where practical.
+- Never upload recordings without explicit user authorization.
+- Clearly explain device-specific restrictions and recording consent requirements.
+
+If recording is unsupported, report the exact limitation and continue to provide the rest of the dialer functionality.
+
+## 5. ACTIVE SPAM PROTECTION
+
+Build a hybrid spam-detection system using:
+
+A. Local database:
+
+- Known spam numbers.
+- Fraud and telemarketing classifications where reliably sourced.
+- User-reported spam numbers.
+- User allow-list and block-list rules.
+- Last successful synchronization time.
+- Dataset version and integrity metadata.
+
+B. Remote data synchronization:
+
+- Synchronize approximately once every 24 hours when network and battery conditions permit.
+- Use WorkManager with unique periodic work.
+- Do not claim exact 24-hour execution because Android may defer background work.
+- Fetch only incremental changes when the source supports them.
+- Verify source authenticity and downloaded data integrity.
+- Apply updates transactionally.
+- Retain the last valid database if a download fails.
+- Prevent duplicate entries and corrupted database updates.
+- Retry with bounded exponential backoff.
+- Do not continuously poll a server.
+
+C. Incoming-call screening:
+
+- Perform local lookups first.
+- Avoid waiting for a network request before displaying or handling an incoming call.
+- Use the supported Android call-screening response window.
+- Keep screening logic lightweight and bounded.
+- Respect the user's blocking preferences and Android's permitted screening behavior.
+- Never automatically block uncertain callers solely because they are unknown.
+
+D. User feedback:
+
+- Report a number as spam.
+- Mark a number as incorrectly classified.
+- Whitelist a number.
+- Display the reason for a spam warning when reliable evidence exists.
+
+Use a legitimate, documented and legally usable spam-data source. Do not scrape private databases or invent a live spam API.
+
+If a reliable source is unavailable, implement the local database and source adapter without pretending that live spam intelligence is active.
+
+## 6. CALLER IDENTIFICATION AND ANNOUNCEMENT
+
+When an incoming call arrives:
+
+1. Check whether the number exists in the local contacts database.
+2. If found, announce the contact's saved display name.
+3. Otherwise, check the local caller-ID database and any authorized caller-ID source.
+4. If a reliable name is available, announce that name with an appropriate qualification.
+5. If no name is available, announce the phone number.
+6. Never fabricate a caller's identity.
+
+Use Android TextToSpeech with configurable language, speech rate and volume.
+
+Include:
+
+- Caller announcement enable/disable switch.
+- Contact-name announcement.
+- Unknown-number announcement.
+- Spam-warning announcement.
+- Headphones-only mode.
+- Bluetooth audio compatibility where supported.
+- Quiet hours.
+- Silent and vibration mode controls.
+- Repeat-announcement prevention.
+- TTS initialization and recovery handling.
+
+Never expose a caller's name or phone number aloud in a mode the user has configured to suppress announcements.
+
+Do not delay the native incoming-call interface while identifying or announcing a caller.
+
+## 7. GOOGLE DRIVE BACKUP AND RESTORE
+
+Implement secure, user-authorized Google Drive integration.
+
+Requirements:
+
+- Connect and disconnect Google accounts.
+- Request only the OAuth scopes required for the selected backup design.
+- Do not request broad Drive access without justification.
+- Use an appropriate application-specific backup location where supported.
+- Provide automatic and manual backup.
+- Allow the user to choose Wi-Fi-only backup.
+- Support configurable backup schedules.
+- Show last successful backup, backup size, status and error details.
+- Support restore preview and explicit restore confirmation.
+- Validate backup manifests, versions and file integrity.
+- Handle duplicate records and partial restore failures.
+- Never overwrite current user data silently.
+- Support backup deletion and account disconnection.
+- Keep authentication tokens out of logs and source control.
+
+Allow separate user-controlled backup settings for:
+
+- Contacts or contact references.
+- Call logs and metadata.
+- Spam database and preferences.
+- Recordings.
+
+Do not silently copy all device contacts into a remote database. Respect Android permissions and provide a clear explanation of what will be backed up.
+
+Encrypt sensitive backup contents before upload where feasible. Document the encryption and recovery-key design. Do not upload plaintext recordings or sensitive metadata without informed authorization.
+
+Do not promise complete contact restoration unless the implementation has the necessary permissions and supported write-back mechanism.
+
+## 8. PRIVACY AND SECURITY
+
+Adopt privacy-by-design principles.
+
+- Process contacts and call history locally whenever possible.
+- Do not sell or share personal data.
+- Do not include advertising or covert tracking.
+- Do not send call recordings, contact lists or call history to an AI service by default.
+- Obtain explicit consent for any optional external processing.
+- Provide clear privacy settings and data deletion controls.
+- Use encrypted network communication.
+- Protect local sensitive data and backup credentials.
+- Redact phone numbers, tokens and personal data from production logs.
+- Validate remote responses and prevent insecure deserialization.
+- Apply least-privilege permissions.
+- Keep secrets and API credentials out of GitHub.
+- Include a threat model and data-flow documentation.
+
+Implement data export, account disconnection, backup deletion and local-data deletion where applicable.
+
+## 9. ULTRA-LOW BATTERY AND MEMORY CONSUMPTION
+
+The dialer must be lightweight and reliable during extended use.
+
+Architecture requirements:
+
+- Use native Android call-handling components.
+- Avoid permanent foreground services unless a specific, permitted feature genuinely requires one.
+- Do not run continuous timers or frequent polling loops.
+- Avoid keeping unnecessary activities or objects alive.
+- Use lazy database access and bounded caches.
+- Close resources correctly.
+- Use coroutines and structured concurrency.
+- Avoid main-thread disk I/O and network operations.
+- Avoid unnecessary wake locks.
+- Avoid aggressive background CPU usage.
+- Avoid unnecessary GPS, Bluetooth scans and location permissions.
+- Run synchronization and backup only when appropriate.
+- Make optional expensive features independently configurable.
+
+Memory requirements:
+
+- Reduce allocations in call-critical paths.
+- Avoid loading large spam databases entirely into memory.
+- Use indexed database queries and pagination.
+- Handle low-memory callbacks.
+- Restore application state after process recreation.
+- Do not assume Android will preserve the app process.
+- Do not use memory-locking tricks, RAM reservation hacks or battery-optimization bypasses.
+
+Performance target:
+
+- Incoming-call presentation must depend on Android's native telephony flow, not on launching a heavy application screen from a background process.
+- Perform local caller lookup without avoidable blocking.
+- Measure call-screening response latency, cold-start performance, memory use, CPU use and battery impact on real devices.
+- Establish measurable targets after baseline testing and improve regressions using recorded measurements.
+
+Do not claim zero battery consumption, guaranteed process survival or a permanently reserved RAM allocation.
+
+## 10. INCOMING-CALL RELIABILITY
+
+This is a critical requirement.
+
+Prevent avoidable delays between an incoming call and the visible, usable call interface.
+
+Implement:
+
+- Correct default dialer integration.
+- Supported Android Telecom interfaces.
+- Lightweight call-screening logic.
+- No synchronous remote spam lookups on the critical path.
+- No database migrations during incoming-call handling.
+- No blocking initialization of TextToSpeech.
+- No unnecessary AI inference before showing the call UI.
+- Safe recovery after reboot, application update or process termination.
+- Clear detection of missing permissions and lost default-dialer status.
+
+Test on physical devices with screen off, screen locked, low battery, low memory, weak network and no network.
+
+Record timestamps for relevant internal stages and identify delays. Do not claim to control the carrier's network, Android's entire telephony stack or the operating system's scheduling decisions.
+
+## 11. USER INTERFACE
+
+Create a clean, fast and accessible native Android interface.
+
+Main sections:
+
+1. Dial Pad.
+2. Contacts.
+3. Recent Calls.
+4. Spam Protection.
+5. Recordings.
+6. Backup and Restore.
+7. Settings.
+8. Privacy and Diagnostics.
+
+Provide:
+
+- Responsive layouts.
+- Accessible labels and touch targets.
+- Light and dark themes.
+- Clear permission explanations.
+- Recording and spam status indicators.
+- Loading, empty, error and success states.
+- Search and filters.
+- No unnecessary animations on call-critical screens.
+
+The incoming-call and in-call interfaces must remain simple and responsive.
+
+## 12. DIAGNOSTICS AND SELF-RECOVERY
+
+Create a diagnostics screen displaying:
+
+- Default dialer status.
+- Required permission status.
+- Call-screening availability.
+- Recording compatibility.
+- TextToSpeech status.
+- Last spam synchronization.
+- Local spam database health.
+- Google Drive connection status.
+- Last backup and restore results.
+- Storage availability.
+- Application version and last error category.
+
+Use bounded, privacy-safe diagnostic logs.
+
+On failure:
+
+- Preserve existing valid data.
+- Recover without infinite restart loops.
+- Retry only when appropriate.
+- Notify the user when manual intervention is required.
+- Never silently report success when an operation failed.
+
+## 13. TESTING REQUIREMENTS
+
+Create automated tests for:
+
+- Number normalization.
+- Contact lookup.
+- Spam classification.
+- Allow-list precedence.
+- False-positive correction.
+- Recording state transitions.
+- Backup integrity and restoration.
+- Database migration.
+- OAuth failure handling.
+- Duplicate prevention.
+- Process recreation.
+- Permission revocation.
+- Network loss.
+- Low storage.
+- TextToSpeech failures.
+- Dual-SIM behavior where testable.
+- Call-screening timeouts and failures.
+
+Use Android emulator tests and physical-device tests where required.
+
+Run:
+
+- Unit tests.
+- Instrumentation tests.
+- UI tests.
+- Static analysis.
+- Lint.
+- Dependency vulnerability checks.
+- Build verification.
+- Regression tests.
+
+Never mark a test as passed unless it actually ran and passed.
+
+## 14. IMPLEMENTATION WORKFLOW
+
+Work in controlled, testable stages.
+
+Stage 1: Inspect the repository and existing code, if provided.
+
+Stage 2: Review current Android telephony APIs, permissions, recording restrictions and Google Drive authentication requirements using official documentation.
+
+Stage 3: Create an architecture document, permission matrix, privacy model and feature feasibility report.
+
+Stage 4: Implement the minimum functional default dialer.
+
+Stage 5: Implement caller identification and local spam screening.
+
+Stage 6: Implement caller announcements.
+
+Stage 7: Implement supported recording functionality with explicit compatibility checks.
+
+Stage 8: Implement secure Google Drive backup and restoration.
+
+Stage 9: Optimize battery, memory and incoming-call responsiveness.
+
+Stage 10: Run automated tests, physical-device tests and regression audits.
+
+Stage 11: Fix verified defects, rebuild and rerun affected tests.
+
+Stage 12: Prepare the release build and complete documentation.
+
+Do not claim that an external API, device feature or repository change was completed unless it was actually implemented and verified.
+
+If credentials, hardware, a repository permission or an unavailable Android capability prevents a task, document the blocker and implement the supported portion.
+
+## 15. RELEASE AND DELIVERABLES
+
+Deliver:
+
+- Complete Android project source code.
+- Reproducible Gradle build.
+- Installable APK when the build environment supports it.
+- AAB when required for Play Store distribution.
+- Setup and build instructions.
+- Permission and compatibility matrix.
+- Privacy policy draft.
+- Data-flow and security documentation.
+- Test report with actual results.
+- Battery and performance measurement report.
+- Recording compatibility report.
+- Known limitations.
+- Release notes and version history.
+
+Do not ship hardcoded credentials, fake caller-ID results, mock spam synchronization, fake backup success or placeholder implementations disguised as finished features.
+
+## 16. DEFINITION OF DONE
+
+The application is complete only when:
+
+1. It functions as a real default Android dialer on supported devices.
+2. Incoming calls are handled through supported native Android interfaces.
+3. Contact lookup and caller announcements work as configured.
+4. Spam protection works offline and synchronization failures are handled safely.
+5. Recording works only where supported and permitted, with truthful status reporting.
+6. Google Drive backup and restoration have been tested with real authorized authentication.
+7. Privacy and deletion controls work.
+8. Battery, memory and latency have been measured rather than guessed.
+9. Automated tests pass, and remaining limitations are documented.
+10. A reproducible build and the required source files are available.
+
+Start by producing the repository audit, Android compatibility analysis, feature feasibility matrix, architecture plan and staged implementation checklist. Then implement and verify the application incrementally.
+
+Do not silently omit requirements. Do not invent capabilities. Do not trade reliability, privacy or device safety for extra features.
+
+## Ab final prompt ko aur precise banane ke liye 4 faisle
+
+Inmein se aap jo tay karenge, uske hisaab se master prompt ko aur specific banaya ja sakta hai.
+
+1\. Automatic call recording
+
+Har call record karne ka prayas, jab device aur kanoon anumati dein
+
+Sirf selected contacts ya numbers
+
+Sirf manual recording
+
+2\. Spam data source
+
+Free/open-source data aur local offline database
+
+Authorized external API bhi, agar zaroorat ho
+
+Community reporting + free data sources
+
+3\. Google Drive backup
+
+Wi-Fi par automatic backup; manual backup kabhi bhi
+
+Wi-Fi ya mobile data, dono par automatic backup
+
+Sirf manual backup
+
+4\. Android compatibility
+
+Android 12 aur uske baad ke versions
+
+Purane aur naye Android versions, jahan support sambhav ho
+
+Naye Android ke liye primary support, purane versions ke liye compatibility testing
+
+Finalize Master Prompt
+
+Meri technical recommendation: pehle reliable native dialer aur incoming-call performance ko establish karein. Uske baad spam intelligence, caller announcement, recording aur encrypted backup jodein. Ek saath sab kuch implement karne se bugs diagnose karna mushkil hoga, khaaskar jab call-screen latency aur battery consumption sabse mahatvapurn requirements hain.

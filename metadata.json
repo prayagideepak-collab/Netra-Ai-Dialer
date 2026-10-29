@@ -1,0 +1,6 @@
+{
+  "name": "Netra AI Dialer",
+  "description": "Enterprise AI Smart Dialer with Official Business Identity Lock, Verified Business Caller ID, Automatic CRM Integration, and AI Post-Call Summarization.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

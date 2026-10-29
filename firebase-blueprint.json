@@ -1,0 +1,344 @@
+{
+  "entities": {
+    "CallLogRecord": {
+      "title": "CallLogRecord",
+      "description": "Represents an outgoing or incoming call log entry with Verified Business Caller ID telemetry, CRM sync state, and Gemini AI post-call summary.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "UID of the authenticated user owning this call log."
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "Normalized phone number of the counterparty."
+        },
+        "contactName": {
+          "type": "string",
+          "description": "Display name resolved from contacts, CRM, or verified business directory."
+        },
+        "direction": {
+          "type": "string",
+          "enum": ["OUTGOING", "INCOMING", "MISSED", "REJECTED"],
+          "description": "Direction or outcome of the call."
+        },
+        "timestampMillis": {
+          "type": "integer",
+          "description": "Epoch milliseconds when the call started."
+        },
+        "durationSeconds": {
+          "type": "integer",
+          "description": "Duration of the call in seconds."
+        },
+        "callingMode": {
+          "type": "string",
+          "enum": ["BUSINESS_VERIFIED", "PERSONAL"],
+          "description": "Whether the call used the Verified Business Identity route or Personal route."
+        },
+        "verifiedCallerIdStatus": {
+          "type": "string",
+          "enum": [
+            "PROVIDER_APPROVED",
+            "IDENTITY_AND_NUMBER_VERIFIED",
+            "REGISTRATION_PENDING",
+            "PROVIDER_REJECTED",
+            "PERSONAL_UNBRANDED"
+          ],
+          "description": "Truthful Verified Business Caller ID status at the time of the call."
+        },
+        "verifiedLegalNameUsed": {
+          "type": "string",
+          "description": "Locked official business legal name presented on the call."
+        },
+        "crmSyncStatus": {
+          "type": "string",
+          "enum": ["SYNCED", "PENDING", "FAILED"],
+          "description": "Synchronization status with the CRM contact record."
+        },
+        "crmContactId": {
+          "type": "string",
+          "description": "Linked CRM contact record document ID."
+        },
+        "aiSummaryOverview": {
+          "type": "string",
+          "description": "Concise AI-generated summary of the call conversation."
+        },
+        "aiDiscussionPoints": {
+          "type": "array",
+          "description": "Key discussion points extracted by Gemini after the call."
+        },
+        "aiActionItems": {
+          "type": "array",
+          "description": "Follow-up action items extracted by Gemini after the call."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when record was created (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when record was last updated (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "phoneNumber",
+        "contactName",
+        "direction",
+        "timestampMillis",
+        "durationSeconds",
+        "callingMode",
+        "verifiedCallerIdStatus",
+        "verifiedLegalNameUsed",
+        "crmSyncStatus",
+        "crmContactId",
+        "aiSummaryOverview",
+        "aiDiscussionPoints",
+        "aiActionItems",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "CrmContactRecord": {
+      "title": "CrmContactRecord",
+      "description": "Customer Relationship Management contact record automatically updated with call logs, verified caller ID metrics, and AI call summaries.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "UID of the authenticated user owning this CRM contact."
+        },
+        "fullName": {
+          "type": "string",
+          "description": "Contact full name."
+        },
+        "companyName": {
+          "type": "string",
+          "description": "Associated business or organization name."
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "Normalized phone number linked to call logs."
+        },
+        "email": {
+          "type": "string",
+          "description": "Contact email address."
+        },
+        "stage": {
+          "type": "string",
+          "enum": ["LEAD", "ACTIVE_CLIENT", "VIP_PARTNER", "SUPPORT"],
+          "description": "CRM lifecycle stage."
+        },
+        "totalCalls": {
+          "type": "integer",
+          "description": "Cumulative number of calls logged with this contact."
+        },
+        "totalDurationSeconds": {
+          "type": "integer",
+          "description": "Cumulative call duration in seconds."
+        },
+        "verifiedOutboundCallsCount": {
+          "type": "integer",
+          "description": "Count of outgoing calls placed with Verified Business Caller ID."
+        },
+        "lastInteractionTimestamp": {
+          "type": "integer",
+          "description": "Epoch milliseconds of the most recent logged call."
+        },
+        "latestAiSummary": {
+          "type": "string",
+          "description": "Most recent AI post-call summary attached to this contact."
+        },
+        "openActionItems": {
+          "type": "array",
+          "description": "Pending follow-up action items from AI call summarization."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Account notes and bioscience/technical context."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when contact was created (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when contact was updated (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "fullName",
+        "companyName",
+        "phoneNumber",
+        "email",
+        "stage",
+        "totalCalls",
+        "totalDurationSeconds",
+        "verifiedOutboundCallsCount",
+        "lastInteractionTimestamp",
+        "latestAiSummary",
+        "openActionItems",
+        "notes",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "VerifiedBusinessIdentity": {
+      "title": "VerifiedBusinessIdentity",
+      "description": "Authoritative locked business identity record separated from ordinary editable profile fields.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "UID of the authenticated business owner."
+        },
+        "registrationType": {
+          "type": "string",
+          "enum": ["GSTIN", "UDYAM"],
+          "description": "Authoritative government registration route."
+        },
+        "registrationNumberMasked": {
+          "type": "string",
+          "description": "Protected/masked GSTIN or Udyam registration identifier."
+        },
+        "verifiedLegalName": {
+          "type": "string",
+          "description": "Official legal business name from authoritative record."
+        },
+        "verifiedTradeName": {
+          "type": "string",
+          "description": "Independently verified trade name if applicable."
+        },
+        "verificationSource": {
+          "type": "string",
+          "description": "Authoritative verification registry source."
+        },
+        "applicantAuthorized": {
+          "type": "boolean",
+          "description": "Whether applicant authority to represent the business was verified."
+        },
+        "lockStatus": {
+          "type": "string",
+          "enum": [
+            "LOCKED_ACTIVE",
+            "REVERIFICATION_PENDING",
+            "SUSPENDED_INVALID",
+            "UNVERIFIED"
+          ],
+          "description": "Current Official Business Identity Lock state."
+        },
+        "outboundNumber": {
+          "type": "string",
+          "description": "Authorized outbound phone number linked to the verified business identity."
+        },
+        "outboundNumberVerified": {
+          "type": "boolean",
+          "description": "Whether right-to-use for the outbound phone number was independently verified."
+        },
+        "callerIdProviderStatus": {
+          "type": "string",
+          "enum": ["PROVIDER_APPROVED", "PENDING", "REJECTED", "UNAVAILABLE"],
+          "description": "Carrier/provider approval state for Verified Business Caller ID."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of initial lock creation."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of last verification transition."
+        }
+      },
+      "required": [
+        "userId",
+        "registrationType",
+        "registrationNumberMasked",
+        "verifiedLegalName",
+        "verifiedTradeName",
+        "verificationSource",
+        "applicantAuthorized",
+        "lockStatus",
+        "outboundNumber",
+        "outboundNumberVerified",
+        "callerIdProviderStatus",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "IdentityAuditEvent": {
+      "title": "IdentityAuditEvent",
+      "description": "Append-only security audit trail for business identity verification, re-verification, activation, and suspension events.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "UID of the authenticated user."
+        },
+        "eventType": {
+          "type": "string",
+          "description": "Audit transition type (e.g., IDENTITY_LOCKED, REVERIFICATION_STARTED, ACTIVATION_BLOCKED)."
+        },
+        "source": {
+          "type": "string",
+          "description": "Verification authority source."
+        },
+        "matchedLegalName": {
+          "type": "string",
+          "description": "Verified legal name associated with the event."
+        },
+        "previousStatus": {
+          "type": "string",
+          "description": "State prior to transition."
+        },
+        "newStatus": {
+          "type": "string",
+          "description": "State after transition."
+        },
+        "failureReason": {
+          "type": "string",
+          "description": "Detailed rejection or suspension reason if any."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Immutable server timestamp of the audit event."
+        }
+      },
+      "required": [
+        "userId",
+        "eventType",
+        "source",
+        "matchedLegalName",
+        "previousStatus",
+        "newStatus",
+        "failureReason",
+        "createdAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/call_logs/{callId}": {
+      "schema": { "$ref": "#/entities/CallLogRecord" },
+      "description": "Per-user call logs with Verified Business Caller ID status, duration, and AI post-call summaries."
+    },
+    "/users/{userId}/crm_contacts/{contactId}": {
+      "schema": { "$ref": "#/entities/CrmContactRecord" },
+      "description": "Per-user CRM contact records synced automatically on call completion."
+    },
+    "/users/{userId}/business_identity/{docId}": {
+      "schema": { "$ref": "#/entities/VerifiedBusinessIdentity" },
+      "description": "Per-user Official Business Identity Lock state and Verified Outbound Caller ID status."
+    },
+    "/users/{userId}/identity_audit_logs/{auditId}": {
+      "schema": { "$ref": "#/entities/IdentityAuditEvent" },
+      "description": "Per-user immutable audit log of identity verification and caller-ID state transitions."
+    }
+  }
+}
